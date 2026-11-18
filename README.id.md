@@ -1,10 +1,30 @@
-# gemini-web-mcp (Dokumentasi Bahasa Indonesia)
+<p align="center">
+  <img src="assets/hero-banner.svg" alt="gemini-web-mcp hero banner" width="100%" />
+</p>
 
-[English](README.md) | **Bahasa Indonesia**
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.11%2B-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python 3.11+" />
+  <img src="https://img.shields.io/badge/Protocol-MCP-6366F1?style=flat-square" alt="Model Context Protocol" />
+  <img src="https://img.shields.io/badge/Engine-Patchright%20%2F%20Playwright-2EAD33?style=flat-square&logo=playwright&logoColor=white" alt="Patchright / Playwright" />
+  <img src="https://img.shields.io/badge/Docker-Xvfb%20%2B%20noVNC-2496ED?style=flat-square&logo=docker&logoColor=white" alt="Docker Xvfb + noVNC" />
+  <img src="https://img.shields.io/badge/License-MIT-0EA5E9?style=flat-square" alt="MIT License" />
+</p>
+
+<p align="center">
+  <a href="README.md">English</a> | <strong>Bahasa Indonesia</strong>
+</p>
+
+# gemini-web-mcp (Dokumentasi Bahasa Indonesia)
 
 Server **Model Context Protocol (MCP)** *plug-and-play* berbasis **Playwright / Patchright** yang membungkus antarmuka web [`gemini.google.com/app`](https://gemini.google.com/app) menggunakan **persistent browser profile**.
 
 Cocok dihubungkan ke **Antigravity (`agy`)**, **Claude Code / Desktop**, **Cursor**, maupun orchestrator agent mandiri seperti **Hermes Agent**—baik secara lokal (`stdio`) maupun sebagai remote server (`streamable-http`) di VPS/Homelab dengan dukungan **Xvfb + noVNC** dan proteksi **Bearer Token**.
+
+## Arsitektur Sistem
+
+<p align="center">
+  <img src="assets/architecture.svg" alt="gemini-web-mcp system architecture" width="100%" />
+</p>
 
 ## Fitur Utama
 

@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" width="1200" height="420" role="img" aria-label="gemini-web-mcp banner">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070B14"/>
+      <stop offset="55%" stop-color="#0D1424"/>
+      <stop offset="100%" stop-color="#090E1A"/>
+    </linearGradient>
+    <radialGradient id="glowLeft" cx="18%" cy="22%" r="48%">
+      <stop offset="0%" stop-color="#4F46E5" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#4F46E5" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowRight" cx="84%" cy="78%" r="45%">
+      <stop offset="0%" stop-color="#06B6D4" stop-opacity="0.24"/>
+      <stop offset="50%" stop-color="#8B5CF6" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#06B6D4" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="accentText" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#60A5FA"/>
+      <stop offset="50%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#C084FC"/>
+    </linearGradient>
+    <linearGradient id="sparkleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="50%" stop-color="#818CF8"/>
+      <stop offset="100%" stop-color="#C084FC"/>
+    </linearGradient>
+    <pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse">
+      <path d="M 28 0 L 0 0 0 28" fill="none" stroke="#1E293B" stroke-width="1" stroke-opacity="0.45"/>
+    </pattern>
+  </defs>
+
+  <rect x="0" y="0" width="1200" height="420" rx="20" fill="url(#bgGrad)"/>
+  <rect x="0" y="0" width="1200" height="420" rx="20" fill="url(#grid)"/>
+  <rect x="0" y="0" width="1200" height="420" rx="20" fill="url(#glowLeft)"/>
+  <rect x="0" y="0" width="1200" height="420" rx="20" fill="url(#glowRight)"/>
+  <rect x="1" y="1" width="1198" height="418" rx="19" fill="none" stroke="#1E293B" stroke-width="2"/>
+
+  <rect x="60" y="52" width="318" height="32" rx="16" fill="#0F1A2E" stroke="#2563EB" stroke-opacity="0.6" stroke-width="1.2"/>
+  <circle cx="80" cy="68" r="4.5" fill="#38BDF8"/>
+  <text x="95" y="73" fill="#93C5FD" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="12" font-weight="600" letter-spacing="0.8">MODEL CONTEXT PROTOCOL • PYTHON</text>
+
+  <path d="M80 112 C80 126, 82 128, 96 128 C82 128, 80 130, 80 144 C80 130, 78 128, 64 128 C78 128, 80 126, 80 112 Z" fill="url(#sparkleGrad)"/>
+  <text x="108" y="145" fill="#F8FAFC" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="52" font-weight="800" letter-spacing="-1.2">gemini-web-mcp</text>
+
+  <text x="60" y="192" fill="#CBD5E1" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="19" font-weight="400">Plug-and-play Playwright &amp; Patchright MCP server wrapping</text>
+  <text x="60" y="220" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="19" font-weight="600">
+    <tspan fill="url(#accentText)">gemini.google.com</tspan>
+    <tspan fill="#CBD5E1" font-weight="400"> with a persistent browser profile.</tspan>
+  </text>
+
+  <g font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="600">
+    <rect x="60" y="258" width="142" height="34" rx="8" fill="#111827" stroke="#334155" stroke-width="1.2"/>
+    <text x="131" y="280" fill="#E2E8F0" text-anchor="middle">Persistent Auth</text>
+
+    <rect x="214" y="258" width="144" height="34" rx="8" fill="#111827" stroke="#334155" stroke-width="1.2"/>
+    <text x="286" y="280" fill="#E2E8F0" text-anchor="middle">Model Switcher</text>
+
+    <rect x="370" y="258" width="154" height="34" rx="8" fill="#111827" stroke="#334155" stroke-width="1.2"/>
+    <text x="447" y="280" fill="#E2E8F0" text-anchor="middle">Multi-File Upload</text>
+
+    <rect x="536" y="258" width="148" height="34" rx="8" fill="#111827" stroke="#334155" stroke-width="1.2"/>
+    <text x="610" y="280" fill="#E2E8F0" text-anchor="middle">Docker + noVNC</text>
+  </g>
+
+  <text x="60" y="348" fill="#64748B" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" font-weight="700" letter-spacing="1">READY FOR:</text>
+  <text x="155" y="348" fill="#94A3B8" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="14" font-weight="600">Claude Code  •  Antigravity (agy)  •  Cursor  •  Hermes Agent</text>
+
+  <rect x="720" y="48" width="424" height="324" rx="14" fill="#0B1120" stroke="#334155" stroke-width="1.5"/>
+  <path d="M720 62 C720 54.3 726.3 48 734 48 H1130 C1137.7 48 1144 54.3 1144 62 V86 H720 Z" fill="#131C31"/>
+  <line x1="720" y1="86" x2="1144" y2="86" stroke="#1E293B" stroke-width="1"/>
+  <circle cx="742" cy="67" r="5.5" fill="#EF4444"/>
+  <circle cx="760" cy="67" r="5.5" fill="#F59E0B"/>
+  <circle cx="778" cy="67" r="5.5" fill="#10B981"/>
+  <text x="932" y="71" fill="#64748B" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" text-anchor="middle">stdio &amp; streamable-http</text>
+
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="13">
+    <text x="742" y="116" fill="#38BDF8">$ ./scripts/bootstrap.sh</text>
+    <text x="742" y="140" fill="#34D399">✔ Patchright Chromium installed</text>
+    <text x="742" y="162" fill="#34D399">✔ Session saved (~/.gemini-web-mcp)</text>
+
+    <line x1="742" y1="180" x2="1122" y2="180" stroke="#1E293B" stroke-width="1" stroke-dasharray="4 4"/>
+
+    <text x="742" y="206" fill="#C084FC">▸ gemini_chat({</text>
+    <text x="742" y="228" fill="#E2E8F0">    model: <tspan fill="#FCD34D">"Pro"</tspan>,</text>
+    <text x="742" y="250" fill="#E2E8F0">    file_paths: [<tspan fill="#93C5FD">"spec.pdf"</tspan>],</text>
+    <text x="742" y="272" fill="#E2E8F0">    prompt: <tspan fill="#93C5FD">"Review architecture"</tspan></text>
+    <text x="742" y="294" fill="#C084FC">  })</text>
+
+    <rect x="742" y="314" width="380" height="36" rx="8" fill="#06281E" stroke="#059669" stroke-opacity="0.6" stroke-width="1"/>
+    <text x="756" y="337" fill="#6EE7B7" font-size="12.5" font-weight="600">✔ 200 OK • Clean Markdown + Thread URL</text>
+  </g>
+</svg>

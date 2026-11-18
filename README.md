@@ -1,10 +1,30 @@
-# gemini-web-mcp
+<p align="center">
+  <img src="assets/hero-banner.svg" alt="gemini-web-mcp hero banner" width="100%" />
+</p>
 
-**English** | [Bahasa Indonesia](README.id.md)
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.11%2B-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python 3.11+" />
+  <img src="https://img.shields.io/badge/Protocol-MCP-6366F1?style=flat-square" alt="Model Context Protocol" />
+  <img src="https://img.shields.io/badge/Engine-Patchright%20%2F%20Playwright-2EAD33?style=flat-square&logo=playwright&logoColor=white" alt="Patchright / Playwright" />
+  <img src="https://img.shields.io/badge/Docker-Xvfb%20%2B%20noVNC-2496ED?style=flat-square&logo=docker&logoColor=white" alt="Docker Xvfb + noVNC" />
+  <img src="https://img.shields.io/badge/License-MIT-0EA5E9?style=flat-square" alt="MIT License" />
+</p>
+
+<p align="center">
+  <strong>English</strong> | <a href="README.id.md">Bahasa Indonesia</a>
+</p>
+
+# gemini-web-mcp
 
 A plug-and-play **Model Context Protocol (MCP)** server built on **Playwright / Patchright** that wraps [`gemini.google.com/app`](https://gemini.google.com/app) using a **persistent browser profile**.
 
 Connect it locally (`stdio`) to **Antigravity (`agy`)**, **Claude Code / Desktop**, or **Cursor**, or deploy it as a remote **Streamable HTTP** MCP server on a headless Linux VPS / Homelab with built-in **Xvfb + noVNC** and **Bearer Token** authentication for autonomous orchestrators like **Hermes Agent**.
+
+## Architecture Overview
+
+<p align="center">
+  <img src="assets/architecture.svg" alt="gemini-web-mcp system architecture" width="100%" />
+</p>
 
 ## Key Features
 
