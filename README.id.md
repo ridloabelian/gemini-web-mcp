@@ -14,6 +14,7 @@ Cocok dihubungkan ke **Antigravity (`agy`)**, **Claude Code / Desktop**, **Curso
 - **Pergantian Model Dinamis (`gemini_select_model`)**: Pindah antara model *Fast / Flash*, *Thinking*, *Pro*, dan model lain yang aktif di akun Google.
 - **Multi-File Upload (`gemini_upload_files`)**: Unggah PDF, gambar, source code, dokumen, atau video lokal langsung ke percakapan Gemini.
 - **Manajemen Percakapan & Diagnostik (`gemini_list_recent_chats`, `gemini_new_chat`, `gemini_status`)**: Baca riwayat percakapan dari sidebar dan pantau kesehatan selector DOM.
+- **Bundled Agent Skill (`skills/gemini-web-mcp/`)**: Dilengkapi `SKILL.md` siap pasang (default Bahasa Inggris + [versi Bahasa Indonesia](skills/gemini-web-mcp/SKILL.id.md)) untuk Claude Code, Antigravity, Cursor, dan Hermes Agent.
 
 ## Quick Start 1: Lokal (Laptop / Desktop - Plug & Play)
 
@@ -72,6 +73,21 @@ Atau jalankan langsung tanpa clone manual via `uvx` (setelah pernah menjalankan 
     }
   }
 }
+```
+
+## Memasang Bundled Agent Skill (`SKILL.md`)
+
+Repositori ini menyertakan skill siap pakai di folder `skills/gemini-web-mcp/` (`SKILL.md` berbahasa Inggris sebagai default dan `SKILL.id.md` untuk Bahasa Indonesia) agar coding agent tahu alur cek sesi, pemilihan model, serta upload file secara presisi:
+
+```bash
+# Via Agent Skills CLI
+npx skills add ridloabelian/gemini-web-mcp
+
+# Claude Code
+cp -r skills/gemini-web-mcp ~/.claude/skills/
+
+# Antigravity / Hermes Agent workspace
+mkdir -p ~/.agent/skills && cp -r skills/gemini-web-mcp ~/.agent/skills/
 ```
 
 ## Quick Start 2: Deploy di VPS / Homelab (Docker + Xvfb + noVNC)

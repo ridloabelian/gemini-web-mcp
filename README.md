@@ -14,6 +14,7 @@ Connect it locally (`stdio`) to **Antigravity (`agy`)**, **Claude Code / Desktop
 - **Dynamic Model Switching (`gemini_select_model`)**: Switch between *Fast / Flash*, *Thinking*, *Pro*, and other models available on your Google account.
 - **Multi-File Upload (`gemini_upload_files`)**: Upload local PDFs, images, source code, documents, or videos directly into a Gemini conversation.
 - **Conversation History & Diagnostics (`gemini_list_recent_chats`, `gemini_new_chat`, `gemini_status`)**: List recent threads from the Gemini sidebar and inspect live DOM selector health.
+- **Bundled Agent Skill (`skills/gemini-web-mcp/`)**: Ready-to-install `SKILL.md` (English default + [Bahasa Indonesia](skills/gemini-web-mcp/SKILL.id.md)) for Claude Code, Antigravity, Cursor, and Hermes Agent.
 
 ## Quick Start 1: Local Machine (Plug & Play)
 
@@ -72,6 +73,21 @@ Or run directly via `uvx` without keeping a local clone (once your profile direc
     }
   }
 }
+```
+
+## Installing the Bundled Agent Skill
+
+This repository ships with a pre-built agent skill under `skills/gemini-web-mcp/` (`SKILL.md` in English by default, plus `SKILL.id.md` in Bahasa Indonesia) teaching AI coding agents how to manage sessions, select models, and attach files reliably:
+
+```bash
+# Via Vercel / Agent Skills CLI
+npx skills add ridloabelian/gemini-web-mcp
+
+# Claude Code
+cp -r skills/gemini-web-mcp ~/.claude/skills/
+
+# Antigravity / Hermes Agent workspace
+mkdir -p ~/.agent/skills && cp -r skills/gemini-web-mcp ~/.agent/skills/
 ```
 
 ## Quick Start 2: Headless VPS / Homelab Deployment (Docker + Xvfb + noVNC)
