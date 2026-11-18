@@ -17,7 +17,7 @@ services:
       - GEMINI_AUTH_TOKEN=${GEMINI_AUTH_TOKEN:-}
     ports:
       - "${MCP_PORT:-8765}:8765"
-      # Bind noVNC hanya ke localhost agar sesi browser aman (akses dari VPS via SSH port-forwarding)
+      # Bind noVNC to localhost only so the live browser session stays private (access via SSH tunnel)
       - "127.0.0.1:${NOVNC_PORT:-6080}:6080"
     volumes:
       - gemini_profile:/data/profile

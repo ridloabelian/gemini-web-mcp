@@ -1,4 +1,4 @@
-"""Definisi FastMCP server dan middleware keamanan HTTP Bearer Token."""
+"""FastMCP server registration and HTTP Bearer token ASGI authentication middleware."""
 
 from __future__ import annotations
 
@@ -11,7 +11,7 @@ from .selectors import validate_local_files
 
 
 class BearerAuthASGIMiddleware:
-    """ASGI middleware untuk memproteksi endpoint MCP HTTP/SSE publik dengan Bearer token."""
+    """ASGI middleware protecting HTTP/SSE MCP endpoints with a static Bearer token."""
 
     def __init__(self, app: Any, expected_token: str) -> None:
         self.app = app
@@ -70,15 +70,15 @@ def build_mcp_server(
     host: str = "127.0.0.1",
     port: int = 8765,
 ) -> Any:
-    """Bangun instance `FastMCP` dengan 7 tools lengkap untuk `gemini.google.com`."""
+    """Build the FastMCP instance exposing all `gemini.google.com` automation tools."""
     from mcp.server.fastmcp import FastMCP  # type: ignore[import-not-found]
 
     mcp = FastMCP(
         "gemini-web-mcp",
         instructions=(
-            "MCP server pembungkus gemini.google.com berbasis Playwright/Patchright "
-            "dengan persistent browser profile. Mendukung chat multi-turn, pemilihan "
-            "model (Flash/Thinking/Pro), riwayat percakapan, dan upload file lokal."
+            "Playwright/Patchright MCP server wrapping gemini.google.com with a "
+            "persistent browser profile. Supports multi-turn chat, dynamic model "
+            "switching (Flash/Thinking/Pro), recent chat discovery, and local file uploads."
         ),
         host=host,
         port=port,
@@ -87,8 +87,8 @@ def build_mcp_server(
     @mcp.tool()
     async def gemini_setup_auth(timeout_seconds: int = 300) -> str:
         """
-        Buka browser interaktif (headed / Xvfb noVNC) ke gemini.google.com/app untuk
-        login akun Google pertama kali dan menyimpan sesi ke persistent profile.
+        Launch an interactive headed browser window (or Xvfb/noVNC session) at
+        gemini.google.com/app to sign in to Google once and persist credentials.
         """
         async with controller.lock:
             res = await controller.setup_interactive_auth(timeout_seconds=timeout_seconds)
@@ -104,15 +104,15 @@ def build_mcp_server(
         timeout_seconds: int | None = None,
     ) -> str:
         """
-        Kirim prompt ke gemini.google.com/app dan kembalikan respons dalam format Markdown bersih.
+        Send a prompt to gemini.google.com/app and return the full response as clean Markdown.
 
         Args:
-            prompt: Teks pertanyaan atau instruksi ke Gemini.
-            new_chat: Mulai percakapan baru sebelum mengirim pesan.
-            conversation_url: Opsional URL thread spesifik untuk melanjutkan diskusi lama.
-            model: Opsional nama model yang ingin diaktifkan lebih dulu (mis. "Flash", "Thinking", "Pro").
-            file_paths: Opsional daftar path file lokal untuk dilampirkan bersama prompt.
-            timeout_seconds: Batas tunggu maksimum jawaban selesai (detik).
+            prompt: Question or instruction for Gemini.
+            new_chat: Start a fresh conversation thread before sending.
+            conversation_url: Specific Gemini thread URL to resume an existing conversation.
+            model: Optional model name to select before sending (e.g. "Flash", "Thinking", "Pro").
+            file_paths: Optional list of local file paths to upload with the prompt.
+            timeout_seconds: Maximum wait time in seconds for streaming completion.
         """
         async with controller.lock:
             res = await controller.send_chat(
@@ -128,8 +128,8 @@ def build_mcp_server(
     @mcp.tool()
     async def gemini_select_model(model_name: str) -> str:
         """
-        Ganti model aktif pada antarmuka web gemini.google.com (contoh: 'Flash', 'Fast',
-        'Thinking', 'Pro'). Mengembalikan daftar model yang tersedia jika nama tidak cocok.
+        Switch the active model in the gemini.google.com mode switcher (e.g. 'Flash',
+        'Fast', 'Thinking', 'Pro'). Returns available menu options if unmatched.
         """
         async with controller.lock:
             res = await controller.select_model(model_name=model_name)
@@ -142,8 +142,8 @@ def build_mcp_server(
         new_chat: bool = False,
     ) -> str:
         """
-        Unggah satu atau beberapa file lokal (PDF, gambar, kode, dokumen, video) ke Gemini Web.
-        Jika `prompt` diberikan, langsung kirim instruksi setelah proses unggah selesai.
+        Upload one or more local files (PDF, images, code, docs, video) into Gemini Web.
+        If `prompt` is provided, automatically submits the prompt once upload completes.
         """
         async with controller.lock:
             validated = validate_local_files(file_paths)
@@ -168,14 +168,14 @@ def build_mcp_server(
 
     @mcp.tool()
     async def gemini_list_recent_chats(limit: int = 15) -> str:
-        """Ambil daftar percakapan terbaru beserta URL-nya dari sidebar Gemini Web."""
+        """List recent conversation titles and URLs from the Gemini Web sidebar."""
         async with controller.lock:
             res = await controller.list_recent_chats(limit=limit)
             return json.dumps(res, ensure_ascii=False, indent=2)
 
     @mcp.tool()
     async def gemini_new_chat() -> str:
-        """Buka halaman percakapan baru yang bersih di gemini.google.com/app."""
+        """Open a fresh conversation thread at gemini.google.com/app."""
         async with controller.lock:
             res = await controller.start_new_chat()
             return json.dumps(res, ensure_ascii=False, indent=2)
@@ -183,8 +183,8 @@ def build_mcp_server(
     @mcp.tool()
     async def gemini_status() -> str:
         """
-        Periksa status login persistent profile, model yang sedang aktif, URL saat ini,
-        serta diagnostik kecocokan selector DOM Gemini Web.
+        Inspect persistent profile authentication status, active model badge, current URL,
+        and live DOM selector matches on gemini.google.com.
         """
         async with controller.lock:
             res = await controller.inspect_status()

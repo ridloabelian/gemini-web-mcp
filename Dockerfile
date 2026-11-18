@@ -8,8 +8,8 @@ ENV DEBIAN_FRONTEND=noninteractive \
     GEMINI_HEADLESS=false \
     GEMINI_BROWSER_CHANNEL=
 
-# Instal Xvfb + Fluxbox + x11vnc + noVNC agar browser dapat berjalan headed di layar virtual
-# (menghindari deteksi headless Google) sekaligus menyediakan portal login web pertama kali.
+# Install Xvfb + Fluxbox + x11vnc + noVNC so Chromium runs headed on a virtual X11 screen
+# (avoiding headless browser fingerprinting) while providing a web portal for initial login.
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
     curl \
