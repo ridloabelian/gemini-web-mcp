@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "gemini-web": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "/ABSOLUTE/PATH/TO/gemini-web-mcp",
+        "gemini-web-mcp"
+      ],
+      "env": {
+        "GEMINI_PROFILE_DIR": "~/.gemini-web-mcp/profile",
+        "GEMINI_HEADLESS": "true",
+        "GEMINI_BROWSER_CHANNEL": "chrome"
+      }
+    }
+  }
+}

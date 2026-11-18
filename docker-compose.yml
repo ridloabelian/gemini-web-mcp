@@ -1,0 +1,31 @@
+services:
+  gemini-web-mcp:
+    build: .
+    container_name: gemini-web-mcp
+    restart: unless-stopped
+    shm_size: "2gb"
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      - GEMINI_PROFILE_DIR=/data/profile
+      - GEMINI_HEADLESS=false
+      - GEMINI_BROWSER_CHANNEL=
+      - ENABLE_NOVNC=${ENABLE_NOVNC:-true}
+      - MCP_PORT=${MCP_PORT:-8765}
+      - NOVNC_PORT=${NOVNC_PORT:-6080}
+      - GEMINI_AUTH_TOKEN=${GEMINI_AUTH_TOKEN:-}
+    ports:
+      - "${MCP_PORT:-8765}:8765"
+      # Bind noVNC hanya ke localhost agar sesi browser aman (akses dari VPS via SSH port-forwarding)
+      - "127.0.0.1:${NOVNC_PORT:-6080}:6080"
+    volumes:
+      - gemini_profile:/data/profile
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8765/healthz"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  gemini_profile:

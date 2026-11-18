@@ -1,0 +1,23 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Virtual environments & build artifacts
+.venv/
+venv/
+dist/
+build/
+*.egg-info/
+
+# Environment & persistent browser session data (NEVER commit cookies/profile!)
+.env
+.env.*
+!.env.example
+profile/
+.gemini-profile/
+data/
+*.log

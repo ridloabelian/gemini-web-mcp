@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "gemini-web-remote": {
+      "url": "http://127.0.0.1:8765/mcp",
+      "headers": {
+        "Authorization": "Bearer GANTI_DENGAN_GEMINI_AUTH_TOKEN"
+      }
+    }
+  }
+}
