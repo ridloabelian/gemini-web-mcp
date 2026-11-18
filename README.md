@@ -1,21 +1,23 @@
 # gemini-web-mcp
 
-Plug-and-play **Model Context Protocol (MCP)** server berbasis **Playwright / Patchright** yang membungkus antarmuka web [`gemini.google.com/app`](https://gemini.google.com/app) menggunakan **persistent browser profile**.
+**English** | [Bahasa Indonesia](README.id.md)
 
-Cocok dihubungkan ke **Antigravity (`agy`)**, **Claude Code / Desktop**, **Cursor**, maupun orchestrator agent mandiri seperti **Hermes Agent**—baik secara lokal (`stdio`) maupun sebagai remote server (`streamable-http`) di VPS/Homelab dengan dukungan **Xvfb + noVNC** dan proteksi **Bearer Token**.
+A plug-and-play **Model Context Protocol (MCP)** server built on **Playwright / Patchright** that wraps [`gemini.google.com/app`](https://gemini.google.com/app) using a **persistent browser profile**.
 
-## Fitur Utama
+Connect it locally (`stdio`) to **Antigravity (`agy`)**, **Claude Code / Desktop**, or **Cursor**, or deploy it as a remote **Streamable HTTP** MCP server on a headless Linux VPS / Homelab with built-in **Xvfb + noVNC** and **Bearer Token** authentication for autonomous orchestrators like **Hermes Agent**.
 
-- **Persistent Google Session**: Login akun Google cukup satu kali (`--setup-auth`); cookies & IndexedDB tersimpan aman di profil lokal atau Docker volume.
-- **Anti-Bot / Stealth Ready**: Mengutamakan `patchright` + argumen anti-otomasi Chrome agar tidak terblokir layar *"This browser or app may not be secure"* saat login Google, serta mendukung koneksi ke instance Chrome aktif via `--cdp-url`.
-- **Multi-Turn & Single-Turn Chat (`gemini_chat`)**: Mendukung percakapan berkelanjutan via `conversation_url`, injeksi prompt multi-baris secara atomik, deteksi selesai streaming berbasis stabilitas DOM, dan konversi HTML ke Markdown bersih (menjaga blok kode dan tabel).
-- **Pergantian Model Dinamis (`gemini_select_model`)**: Pindah antara model *Fast / Flash*, *Thinking*, *Pro*, dan model lain yang aktif di akun Google.
-- **Multi-File Upload (`gemini_upload_files`)**: Unggah PDF, gambar, source code, dokumen, atau video lokal langsung ke percakapan Gemini.
-- **Manajemen Percakapan & Diagnostik (`gemini_list_recent_chats`, `gemini_new_chat`, `gemini_status`)**: Baca riwayat percakapan dari sidebar dan pantau kesehatan selector DOM.
+## Key Features
 
-## Quick Start 1: Lokal (Laptop / Desktop - Plug & Play)
+- **Persistent Google Session**: Sign in once (`--setup-auth`); cookies and IndexedDB state stay persisted in your local profile directory or Docker volume.
+- **Anti-Bot / Stealth Ready**: Prioritizes `patchright` alongside Chrome anti-automation flags to avoid Google's *"This browser or app may not be secure"* login block, and supports attaching to a running Chrome instance via `--cdp-url`.
+- **Single-Turn & Multi-Turn Chat (`gemini_chat`)**: Resume any thread via `conversation_url`, inject multi-line prompts atomically without premature `Enter` submission, detect streaming completion via DOM stability polling, and extract clean Markdown (preserving fenced code blocks and tables).
+- **Dynamic Model Switching (`gemini_select_model`)**: Switch between *Fast / Flash*, *Thinking*, *Pro*, and other models available on your Google account.
+- **Multi-File Upload (`gemini_upload_files`)**: Upload local PDFs, images, source code, documents, or videos directly into a Gemini conversation.
+- **Conversation History & Diagnostics (`gemini_list_recent_chats`, `gemini_new_chat`, `gemini_status`)**: List recent threads from the Gemini sidebar and inspect live DOM selector health.
 
-Pastikan Python 3.11+ terpasang, lalu jalankan skrip bootstrap satu perintah:
+## Quick Start 1: Local Machine (Plug & Play)
+
+Requires Python 3.11+. Clone the repository and run the one-command bootstrap script:
 
 ```bash
 git clone https://github.com/ridloabelian/gemini-web-mcp.git
@@ -24,15 +26,15 @@ chmod +x scripts/bootstrap.sh
 ./scripts/bootstrap.sh
 ```
 
-Skrip di atas otomatis:
-1. Menginstal `uv` (jika belum ada) dan seluruh dependensi `pyproject.toml`.
-2. Mengunduh Chromium untuk Patchright.
-3. Membuka jendela browser ke `https://gemini.google.com/app` agar kamu bisa login akun Google satu kali.
-4. Mencetak konfigurasi JSON MCP siap tempel beserta path absolut di mesinmu.
+What `scripts/bootstrap.sh` does automatically:
+1. Installs `uv` (if missing) and syncs all package dependencies from `pyproject.toml`.
+2. Installs the Patchright Chromium binary.
+3. Launches a headed browser window at `https://gemini.google.com/app` for your one-time Google sign-in.
+4. Prints a ready-to-paste MCP client JSON snippet with your exact local path.
 
-### Konfigurasi MCP Client Lokal (`stdio`)
+### Local MCP Client Configuration (`stdio`)
 
-Tambahkan ke konfigurasi MCP client (`.mcp.json`, Claude Desktop, Cursor, atau Antigravity):
+Add this entry to your MCP client configuration (`.mcp.json`, Claude Desktop, Cursor, or Antigravity):
 
 ```json
 {
@@ -42,7 +44,7 @@ Tambahkan ke konfigurasi MCP client (`.mcp.json`, Claude Desktop, Cursor, atau A
       "args": [
         "run",
         "--directory",
-        "/path/absolut/ke/gemini-web-mcp",
+        "/absolute/path/to/gemini-web-mcp",
         "gemini-web-mcp"
       ],
       "env": {
@@ -55,7 +57,7 @@ Tambahkan ke konfigurasi MCP client (`.mcp.json`, Claude Desktop, Cursor, atau A
 }
 ```
 
-Atau jalankan langsung tanpa clone manual via `uvx` (setelah pernah menjalankan `--setup-auth`):
+Or run directly via `uvx` without keeping a local clone (once your profile directory has been authenticated with `--setup-auth`):
 
 ```json
 {
@@ -72,74 +74,74 @@ Atau jalankan langsung tanpa clone manual via `uvx` (setelah pernah menjalankan 
 }
 ```
 
-## Quick Start 2: Deploy di VPS / Homelab (Docker + Xvfb + noVNC)
+## Quick Start 2: Headless VPS / Homelab Deployment (Docker + Xvfb + noVNC)
 
-Untuk server Linux tanpa monitor fisik, container ini menjalankan browser *headed* di atas layar virtual **Xvfb (`:99`)** sehingga lolos deteksi headless Google, dilengkapi portal **noVNC** untuk login pertama kali:
+On headless Linux servers, the Docker image runs a real *headed* Chromium session inside an **Xvfb (`:99`)** virtual display—bypassing headless browser fingerprinting—paired with a localhost-bound **noVNC** portal for your initial Google login:
 
 ```bash
 git clone https://github.com/ridloabelian/gemini-web-mcp.git
 cd gemini-web-mcp
 cp .env.example .env
-# Isi GEMINI_AUTH_TOKEN di .env dengan token acak yang kuat!
+# Set a strong secret in GEMINI_AUTH_TOKEN inside .env!
 docker compose up -d --build
 ```
 
-### Langkah Login Pertama Kali di VPS:
-1. Buat SSH tunnel dari laptop ke VPS untuk membuka portal noVNC secara aman:
+### One-Time Google Sign-In on a Remote Server:
+1. Forward the noVNC port securely from your workstation over SSH:
    ```bash
-   ssh -L 6080:127.0.0.1:6080 user@ip-vps-kamu
+   ssh -L 6080:127.0.0.1:6080 user@your-server-ip
    ```
-2. Buka `http://localhost:6080/vnc.html` di browser laptop, klik **Connect**, lalu login ke akun Google pada jendela Chromium yang tampil di layar.
-3. Setelah masuk ke halaman chat Gemini, sesi tersimpan permanen di volume `gemini_profile`. Kamu bisa mematikan noVNC kapan saja dengan mengubah `ENABLE_NOVNC=false` di `.env` lalu `docker compose up -d`.
+2. Open `http://localhost:6080/vnc.html` in your local browser, click **Connect**, and complete the Google sign-in inside the Chromium window.
+3. Once signed in to Gemini, your session is persisted in the `gemini_profile` Docker volume. You can disable noVNC afterward by setting `ENABLE_NOVNC=false` in `.env` and running `docker compose up -d`.
 
-### Konfigurasi Remote MCP (`StreamableHTTP`)
+### Remote MCP Client Configuration (`StreamableHTTP`)
 
-Endpoint MCP aktif di `http://<host>:8765/mcp` (dan healthcheck di `/healthz`). Jika dipasang di balik Cloudflare Tunnel / Nginx Reverse Proxy:
+The server exposes `/mcp` (Streamable HTTP) and `/healthz` (unauthenticated health probe) on port `8765`. Behind a reverse proxy or Cloudflare Tunnel:
 
 ```json
 {
   "mcpServers": {
     "gemini-web-remote": {
-      "url": "https://mcp-domain-kamu.id/mcp",
+      "url": "https://your-mcp-domain.example.com/mcp",
       "headers": {
-        "Authorization": "Bearer TOKEN_RAHASIA_DARI_ENV"
+        "Authorization": "Bearer YOUR_SECRET_GEMINI_AUTH_TOKEN"
       }
     }
   }
 }
 ```
 
-## Daftar MCP Tools yang Tersedia
+## Available MCP Tools
 
-| Nama Tool | Fungsi Utama |
+| Tool Name | Description |
 | :--- | :--- |
-| `gemini_setup_auth` | Membuka browser berjendela (headed) untuk login akun Google pertama kali dan menyimpan sesi ke persistent profile. |
-| `gemini_chat` | Mengirim prompt (mendukung `new_chat`, `conversation_url`, pilih `model` otomatis, dan lampirkan `file_paths`) serta mengembalikan jawaban Markdown bersih. |
-| `gemini_select_model` | Mengganti model aktif di menu mode switcher Gemini (`Flash`, `Thinking`, `Pro`, dsb.) dan menampilkan daftar model yang tersedia. |
-| `gemini_upload_files` | Mengunggah satu atau banyak file lokal ke percakapan aktif (dengan atau tanpa instruksi `prompt` langsung). |
-| `gemini_list_recent_chats` | Mengambil daftar judul dan URL percakapan terbaru dari sidebar `gemini.google.com`. |
-| `gemini_new_chat` | Membuka percakapan baru yang bersih di `gemini.google.com/app`. |
-| `gemini_status` | Mengecek status autentikasi profil, model aktif, URL saat ini, dan kecocokan selector DOM. |
+| `gemini_setup_auth` | Opens an interactive headed browser window to complete one-time Google login and persist session state. |
+| `gemini_chat` | Sends a prompt (supports `new_chat`, `conversation_url`, inline `model` selection, and `file_paths` attachments) and returns clean Markdown. |
+| `gemini_select_model` | Switches the active model in Gemini's mode switcher (`Flash`, `Thinking`, `Pro`, etc.) and lists available options. |
+| `gemini_upload_files` | Uploads one or more local files into the active Gemini thread, with an optional follow-up `prompt`. |
+| `gemini_list_recent_chats` | Scrapes recent conversation titles and URLs from the `gemini.google.com` sidebar. |
+| `gemini_new_chat` | Opens a fresh conversation thread at `gemini.google.com/app`. |
+| `gemini_status` | Checks authentication state, active model badge, current URL, and DOM selector health. |
 
-## Variabel Lingkungan (`.env`)
+## Environment Variables (`.env`)
 
-| Variabel | Default | Keterangan |
+| Variable | Default | Description |
 | :--- | :--- | :--- |
-| `GEMINI_PROFILE_DIR` | `~/.gemini-web-mcp/profile` | Direktori penyimpanan persistent browser profile. |
-| `GEMINI_HEADLESS` | `true` | Jalankan browser tanpa jendela (`false` direkomendasikan saat di dalam Xvfb Docker). |
-| `GEMINI_BROWSER_CHANNEL` | `chrome` | Gunakan `chrome` lokal, `msedge`, atau kosongkan `""` untuk memakai Chromium bawaan. |
-| `GEMINI_CDP_URL` | *(kosong)* | Opsional attach ke Chrome aktif via CDP, mis. `http://127.0.0.1:9222`. |
-| `GEMINI_RESPONSE_TIMEOUT` | `180` | Batas tunggu maksimum respons streaming Gemini dalam detik. |
-| `GEMINI_AUTH_TOKEN` | *(kosong)* | Bearer token untuk memproteksi endpoint HTTP/SSE publik. |
+| `GEMINI_PROFILE_DIR` | `~/.gemini-web-mcp/profile` | Persistent Chromium/Chrome user data directory. |
+| `GEMINI_HEADLESS` | `true` | Run browser headless (`false` is recommended when running inside Docker Xvfb). |
+| `GEMINI_BROWSER_CHANNEL` | `chrome` | Browser channel (`chrome`, `msedge`, or empty `""` for bundled Chromium). |
+| `GEMINI_CDP_URL` | *(empty)* | Optional CDP endpoint to attach to an already-running Chrome instance (e.g., `http://127.0.0.1:9222`). |
+| `GEMINI_RESPONSE_TIMEOUT` | `180` | Maximum wait time in seconds for streaming responses to complete. |
+| `GEMINI_AUTH_TOKEN` | *(empty)* | Optional Bearer token protecting HTTP/SSE MCP endpoints. |
 
-## Pengujian Lokal & CI
+## Testing & CI
 
 ```bash
 make test
 ```
 
-Template GitHub Actions tersedia di `examples/github-actions-ci.yml` (salin ke `.github/workflows/ci.yml` jika ingin mengaktifkan pengujian otomatis pada setiap push).
+A GitHub Actions workflow template is included at `examples/github-actions-ci.yml` (copy to `.github/workflows/ci.yml` to enable automated checks on push/PR).
 
-## Lisensi
+## License
 
 MIT License
